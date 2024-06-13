@@ -12,6 +12,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        sudo apt-get install nasm
+        git clone https://github.com/yasm/yasm.git
+        cd yasm
+        git checkout v1.3.0
+        ./autogen.sh && ./configure && make && make install
     - name: Build
       run: ./build.sh
     - uses: actions/upload-artifact@v4
