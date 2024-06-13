@@ -22,6 +22,9 @@ function build {
   export CFLAGS=$FFMPEG_CFLAGS
   export LDFLAGS=$FFMPEG_LDFLAGS
 
+  # fix dash api http 301/302 redirect use origin host
+  sed -i 's/ret = parse_manifest_representation(s, url,/ret = parse_manifest_representation(s, c->base_url,/g' ./libavformat/dashdec.c
+
   ./configure \
     ${ffmpeg_configure_options} \
     --extra-libs="$FFMPEG_EXTRA_LIBS" \
